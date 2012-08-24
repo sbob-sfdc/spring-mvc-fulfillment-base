@@ -11,8 +11,8 @@ public class Invoice {
     @JsonProperty(value="Name")
     private String number;
 
-    @JsonProperty(value="Description__c")
-    private String description;
+    // @JsonProperty(value="Description__c")
+    // private String description;
 
     @JsonProperty(value="Status__c")
     private String status;

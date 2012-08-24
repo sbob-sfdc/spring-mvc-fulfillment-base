@@ -27,23 +27,23 @@ public class InvoiceServiceImpl implements InvoiceService {
     
 	@Override
 	public void addInvoice(Invoice invoice) {
-        getForceApi().createSObject("Invoice_Statement__c", invoice);
+        getForceApi().createSObject("Invoice__c", invoice);
 	}
 
 	@Override
 	public List<Invoice> listInvoices() {
-        QueryResult<Invoice> res = getForceApi().query("SELECT Id, Name, Description__c, Status__c FROM Invoice_Statement__c", Invoice.class);
+        QueryResult<Invoice> res = getForceApi().query("SELECT Id, Name, Status__c FROM Invoice__c", Invoice.class);
         return res.getRecords();
 	}
 
 	@Override
 	public Invoice findInvoice(String id) {
-		return getForceApi().getSObject("Invoice_Statement__c", id).as(Invoice.class);
+		return getForceApi().getSObject("Invoice__c", id).as(Invoice.class);
 	}
 
 	@Override
 	public void removeInvoice(String id) {
-        getForceApi().deleteSObject("Invoice_Statement__c", id);
+        getForceApi().deleteSObject("Invoice__c", id);
     }
 
 }
