@@ -33,13 +33,13 @@ public class Invoice {
         this.number = number;
     }
 
-    public String getDescription() {
-        return description;
-    }
+    // public String getDescription() {
+    //     return description;
+    // }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    // public void setDescription(String description) {
+    //     this.description = description;
+    // }
 
     public String getStatus() {
         return status;
