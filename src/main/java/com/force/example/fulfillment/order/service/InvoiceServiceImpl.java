@@ -2,6 +2,7 @@ package com.force.example.fulfillment.order.service;
 
 import java.util.List;
 
+import canvas.CanvasRequest;
 import org.springframework.stereotype.Service;
 
 import com.force.api.ApiSession;
@@ -15,13 +16,19 @@ import com.force.example.fulfillment.order.model.Invoice;
 @Service
 public class InvoiceServiceImpl implements InvoiceService {
 
+    private CanvasRequest cr;
+
     private ForceApi getForceApi() {
-        SecurityContext sc = ForceSecurityContextHolder.get();
-
         ApiSession s = new ApiSession();
-        s.setAccessToken(sc.getSessionId());
-        s.setApiEndpoint(sc.getEndPointHost());
 
+        if(cr != null) {
+            s.setAccessToken(cr.getClient().getOAuthToken());
+            s.setApiEndpoint(cr.getClient().getInstanceUrl());
+        } else {
+            SecurityContext sc = ForceSecurityContextHolder.get();
+            s.setAccessToken(sc.getSessionId());
+            s.setApiEndpoint(sc.getEndPointHost());
+        }
         return new ForceApi(s);
     }
     
@@ -44,6 +51,10 @@ public class InvoiceServiceImpl implements InvoiceService {
 	@Override
 	public void removeInvoice(String id) {
         getForceApi().deleteSObject("Invoice__c", id);
+    }
+
+    public void setSignedRequest(CanvasRequest canRequest) {
+        this.cr = canRequest;
     }
 
 }
